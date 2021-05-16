@@ -17,6 +17,7 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -43,47 +44,55 @@ public class MainActivity extends AppCompatActivity {
     String nickname;
     ListView myListView;
     BubbleTextView textMessage;
-    boolean xy = true; //34
-    String s,comment;
+    boolean xy = true;
+    String s,comment,lucky="";
     EditText input;
     String s1;
     double protect,health,attack,speed;
     double elbrium,gold;
-    int count=0,k1,k2,g1,g2,n=-1;
+    int count=0,k1,k2,g1,g2,n=-1,luck=0,z1,z2,r1,r2,d1,d2,m1,m2,x1=-1,x2=-1,y1=-1,y2=-1;
     String[] words;
     int spaces;
     private static final int NOTIFY_ID = 101;
     TextView word;
     int sec=1;
     CountDownTimer countDownTimer;
+    MediaPlayer mediaPlayer;
     // //
     GetterANDSetterFile getterANDSetterFile;
     //Online online;
     // //
-
     private static String CHANNEL_ID = "Elbrium channel";
-
-
-
     // //
     @Override
     protected void onPause() {
         //updateOnline();
+        if(getterANDSetterFile.get_SoundMusic()==1)mediaPlayer.pause();
         Log.e("MAINACTIVITY", "PAUSED");
         super.onPause();
+    }
+    @Override
+    protected void onStart(){
+        if(getterANDSetterFile.get_SoundMusic()==1)mediaPlayer.start();
+        super.onStart();
     }
     // //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //getSupportActionBar().hide();
+        mediaPlayer = MediaPlayer.create(this,R.raw.chatsound);
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                if(getterANDSetterFile.get_SoundMusic()==1)mediaPlayer.start();
+            }
+        });
         myListView = findViewById(R.id.listView);
         myListView.isFastScrollEnabled();
         input = findViewById(R.id.editText);
         word = findViewById(R.id.number_of_words_entered);
         getterANDSetterFile = new GetterANDSetterFile(); //
-
         //online(0);
         // //
         //online=new Online();
@@ -99,14 +108,17 @@ public class MainActivity extends AppCompatActivity {
         nickname = getterANDSetterFile.get_Nickname();
         activity_main = findViewById(R.id.activity_main);
         button = findViewById(R.id.button2);
-
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 s1 = input.getText().toString();
                 spaces = s1.length() - s1.replace(" ", "").length();
-                if(nickname != null && !s1.equals("") && !s1.contains("\n\n\n\n") && s1.length()!=spaces){
+                luck = (int) (Math.random()*1000);
+                Log.d("random_int",luck+"");
+                Log.d("random_string",lucky+"");
+                if(luck%2==0)lucky = " [Успешно]";
+                else lucky = " [Неуспешно]";
+                if(nickname != null && !s1.equals("") && !s1.contains("\n\n\n\n") && s1.length()!=spaces && !s1.contains("#try")){
                     if(s1.length()<=550){
                         FirebaseDatabase.getInstance().getReference("Message").push().setValue(new Message(input.getText().toString(), nickname));
                     }
@@ -114,8 +126,11 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"Сообщение слишком большое!",Toast.LENGTH_SHORT).show();
                     }
                 }
+                else if(s1.contains("#try"))FirebaseDatabase.getInstance().getReference("Message").push().setValue(new Message(input.getText().toString()+lucky, nickname));
                 //else if(!s1.equals("") && !s1.contains("\n\n\n\n\n") && s1.length()!=spaces)FirebaseDatabase.getInstance().getReference("Message").push().setValue(new Message(input.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail()));
                 else Toast.makeText(getApplicationContext(),"Сообщение не может быть пустым",Toast.LENGTH_SHORT).show();
+                lucky = "";
+                luck=0;
                 getterANDSetterFile.set_Message(s1);
                 Intent playActivity = new Intent(MainActivity.this, AndroidLauncher.class);
                 if(s1.contains("#join"))startActivity(playActivity);
@@ -158,14 +173,15 @@ public class MainActivity extends AppCompatActivity {
             countDownTimer.start();
         }
         displayChat();
-
-        if (savedInstanceState == null) {
-            //getSupportFragmentManager().beginTransaction().replace(R.id.activity_main, new ShopActivity.SettingsFragment()).commit();
-        }
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbar, menu);
+        return true;
     }
     public static class SettingsFragment extends PreferenceFragmentCompat {
         @Override
@@ -175,6 +191,11 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id==R.id.item1){
+            startActivity(new Intent(MainActivity.this,TableLeader.class));
+            return true;
+        }
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
@@ -183,10 +204,7 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
     private void displayChat() {
-
         ListView listMessages = findViewById(R.id.listView);
         adapter = new FirebaseListAdapter<Message>(MainActivity.this, Message.class, R.layout.list_item, FirebaseDatabase.getInstance().getReference("Message")) {
             @Override
@@ -204,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
                 int kolvo_symbols = 0;
                 s = textMessage.getText().toString();
                 comment = textMessage.getText().toString();
-                if(s.contains("*") && textMessage.getText().toString().contains("*")) {
+                if(s.contains("*") && textMessage.getText().toString().contains("*") && !s.contains("#")) {
                     for (int i = 0; i < s.length(); i++) {
                         if (s.charAt(i) == '*' && s.contains("*")) {
                             kolvo_symbols++;
@@ -214,7 +232,6 @@ public class MainActivity extends AppCompatActivity {
                                 SpannableStringBuilder builder = new SpannableStringBuilder();
                                 SpannableString colorSpannable= new SpannableString(s);
                                 colorSpannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.comment)),k1,k2+1,0);
-                                //textMessage.setTextColor(getResources().getColor(R.color.comment));
                                 builder.append(colorSpannable);
                                 textMessage.setText(builder, TextView.BufferType.SPANNABLE);
                                 kolvo_symbols = 0;
@@ -253,6 +270,40 @@ public class MainActivity extends AppCompatActivity {
                 else if(!s.contains("*")&&!textMessage.getText().toString().contains("*"))textMessage.setTextColor(getResources().getColor(R.color.white));
                 if(s.contains("@") && !s.contains("@"+nickname))textMessage.setTextColor(getResources().getColor(R.color.ping2));
                 if((s.contains("#join") || s.contains("#leave")))textMessage.setTextColor(getResources().getColor(R.color.command1));
+                if(s.contains("[Успешно]") && s.contains("#try")){
+                    d1 = s.indexOf("#");
+                    d2 = s.lastIndexOf("y");
+                    z1 = s.indexOf("[");
+                    z2 = s.lastIndexOf("]");
+                    SpannableStringBuilder builder1 = new SpannableStringBuilder();
+                    SpannableString colorSpannable1= new SpannableString(s);
+                    colorSpannable1.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.True)),z1,z2+1,0);
+                    colorSpannable1.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.Try)),d1,d2+1,0);
+                    if(s.contains("*")){
+                        x1 = comment.indexOf("*");
+                        x2 = comment.lastIndexOf("*");
+                        colorSpannable1.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.comment)),x1,x2+1,0);
+                    }
+                    builder1.append(colorSpannable1);
+                    textMessage.setText(builder1, TextView.BufferType.SPANNABLE);
+                }
+                if(s.contains("[Неуспешно]") && s.contains("#try")){
+                    m1 = s.indexOf("#");
+                    m2 = s.lastIndexOf("y");
+                    r1 = s.indexOf("[");
+                    r2 = s.lastIndexOf("]");
+                    SpannableStringBuilder builder1 = new SpannableStringBuilder();
+                    SpannableString colorSpannable1= new SpannableString(s);
+                    colorSpannable1.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.False)),r1,r2+1,0);
+                    colorSpannable1.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.Try)),m1,m2+1,0);
+                    if(s.contains("*")){
+                        y1 = comment.indexOf("*");
+                        y2 = comment.lastIndexOf("*");
+                        colorSpannable1.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.comment)),y1,y2+1,0);
+                    }
+                    builder1.append(colorSpannable1);
+                    textMessage.setText(builder1, TextView.BufferType.SPANNABLE);
+                }
                 if(xy){
                     myListView.smoothScrollToPosition(2000000000);
                     xy = false;
@@ -260,9 +311,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         listMessages.setAdapter(adapter);
-
     }
-
     // //
     public void updateOnline(String s, int case_){
         switch (case_){
@@ -270,10 +319,7 @@ public class MainActivity extends AppCompatActivity {
             case 1:FirebaseDatabase.getInstance().getReference("online").setValue(s.replace(getterANDSetterFile.get_Nickname() + ";", ""));break;
             default: break;
         }
-
-
     }
-
     public void online(int case_){
         FirebaseDatabase.getInstance().getReference("online").addValueEventListener(new ValueEventListener() {
             @Override
@@ -282,13 +328,10 @@ public class MainActivity extends AppCompatActivity {
                 updateOnline(snapshot.getValue().toString(),case_);
                 Log.e("MainAc",getterANDSetterFile.get_Online());
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
     // //
-
 }

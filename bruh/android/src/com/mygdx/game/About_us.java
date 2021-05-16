@@ -9,8 +9,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 public class About_us extends AppCompatActivity {
-TextView pr,pr_text,com,j,j_text,l,l_text,an,an_text,a,a_text,e,e_text,bags_tv,vk,vk_text;
-String text,prehistory,prehistory_txt,commands,join,join_txt,leave,leave_txt,an_nickname,an_nickname_txt,all,all_txt,example,example_text,bags,copy_txt,vkon,vkon_txt;
+TextView pr,pr_text,com,j,j_text,l,l_text,an,an_text,a,a_text,e,e_text,bags_tv,vk,vk_text,try_tv,try_text;
+String text,prehistory,prehistory_txt,commands,join,join_txt,leave,leave_txt,an_nickname,an_nickname_txt,all,all_txt,example,example_text,bags,copy_txt,vkon,vkon_txt,try_string_tv,try_string;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +31,16 @@ String text,prehistory,prehistory_txt,commands,join,join_txt,leave,leave_txt,an_
         e = findViewById(R.id.example);
         e_text = findViewById(R.id.example_text);
         bags_tv = findViewById(R.id.bags);
+        try_tv = findViewById(R.id.Try);
+        try_text = findViewById(R.id.Try_text);
+        try_string_tv = "#try ";
+        try_string = "- Возвращает случайное значение: [Успешно] или [Неуспешно].";
         vkon = "Музыка - ";
         vkon_txt = "https://vk.com/ssssadsubmarine";
         prehistory = "Предыстория";
-        prehistory_txt = "(текст)";
+        prehistory_txt = "Давным-давно человечество погрузилось во тьму. Ядерные катастрофы, войны и бесконечные катаклизмы (ответная реакция природы на действия человека). В итоге, заключив шаткое перемирие, человечество отправилось в бескрайний космос.\n" +
+                "Через много лет и появляетесь вы. Пилот, цель которого добыть как можно больше Elbrium'а. Он - главный ресурс новой современности: топливо, благодаря которому человечество, живущее на пяти планетах, может вновь и вновь подниматься в воздух и исследовать ближайший и далёкий космос.\n" +
+                "Прокачивайте свой корабль, общайтесь с другими пилотами и просто отдыхайте. Приключения ждут!";
         commands = "Команды";
         join = "#join ";
         join_txt = "– вход в космическое пространство.";
@@ -65,7 +71,10 @@ String text,prehistory,prehistory_txt,commands,join,join_txt,leave,leave_txt,an_
         a_text.setText(all_txt+"\n");
         e.setText(example);
         e.setTextColor(getResources().getColor(R.color.comment));
-        e_text.setText(example_text+"\n\n");
+        e_text.setText(example_text+"\n");
+        try_tv.setText(try_string_tv);
+        try_tv.setTextColor(getResources().getColor(R.color.Try));
+        try_text.setText(try_string+"\n\n");
         bags_tv.setText(bags + copy_txt+"\n");
         vk.setText(vkon);
         vk_text.setText(vkon_txt+"\n");

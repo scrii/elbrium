@@ -1,15 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: pl.mk5.gdx-fireapp:gdx-fireapp-android:2.1.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/281ccc70e6968bf7c25e5aca00296598/jetified-gdx-fireapp-android-2.1.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/281ccc70e6968bf7c25e5aca00296598/jetified-gdx-fireapp-android-2.1.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/281ccc70e6968bf7c25e5aca00296598/jetified-gdx-fireapp-android-2.1.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5cdc617d6d75886f3870598627ff41c7/jetified-gdx-fireapp-android-2.1.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5cdc617d6d75886f3870598627ff41c7/jetified-gdx-fireapp-android-2.1.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5cdc617d6d75886f3870598627ff41c7/jetified-gdx-fireapp-android-2.1.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/14b614bff2f1f31b25117c2dc369f80a/jetified-gdx-fireapp-android-2.1.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/14b614bff2f1f31b25117c2dc369f80a/jetified-gdx-fireapp-android-2.1.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/14b614bff2f1f31b25117c2dc369f80a/jetified-gdx-fireapp-android-2.1.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7e532126d8d2e32c8a6d63e9deff1f1d/jetified-gdx-fireapp-android-2.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7e532126d8d2e32c8a6d63e9deff1f1d/jetified-gdx-fireapp-android-2.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7e532126d8d2e32c8a6d63e9deff1f1d/jetified-gdx-fireapp-android-2.1.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/pl.mk5.gdx-fireapp/gdx-fireapp-android/2.1.0/1f6f311bdfba1e481a1187a4572f6cf9aa4d37e3/gdx-fireapp-android-2.1.0-javadoc.jar!/" />

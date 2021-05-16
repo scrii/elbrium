@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: cn.zhaiyifan:rememberedittext:0.9.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8ce9ddff081ed56bf0dadb7231ed4ff9/jetified-rememberedittext-0.9.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8ce9ddff081ed56bf0dadb7231ed4ff9/jetified-rememberedittext-0.9.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8ce9ddff081ed56bf0dadb7231ed4ff9/jetified-rememberedittext-0.9.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8f4ee0fad654d0c19c20fb3f0c69bd57/jetified-rememberedittext-0.9.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8f4ee0fad654d0c19c20fb3f0c69bd57/jetified-rememberedittext-0.9.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8f4ee0fad654d0c19c20fb3f0c69bd57/jetified-rememberedittext-0.9.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cn.zhaiyifan/rememberedittext/0.9.0/ad6ec3527408b8a01344f3f93c5fa050a87a84ff/rememberedittext-0.9.0-javadoc.jar!/" />

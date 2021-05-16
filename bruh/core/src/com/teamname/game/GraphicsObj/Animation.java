@@ -1,9 +1,7 @@
 package com.teamname.game.GraphicsObj;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.teamname.game.Actor.Comet;
 import com.teamname.game.Screens.GameSc;
 
 
@@ -61,7 +59,7 @@ public class Animation {
         {
             isDone=true;
             //setNewTextureReg(GameSc.);
-            if(scenes>1)setNewTextureReg(Comet.getCometRegion(this));
+            if(scenes>1)setNewTextureReg(GameSc.getCometRegion(this));
             frame=0;
             //Gdx.app.error("sceneCount",sceneCount+"");
         }
@@ -76,17 +74,6 @@ public class Animation {
 
     public TextureRegion getFrame(){
         return frames.get(frame);
-    }
-
-    public Sprite getSprite(){
-        return new Sprite(frames.get(frame));
-    }
-
-    public Sprite setSpriteRotation(float degrees){
-        Sprite sprite = getSprite();
-        sprite.setOriginCenter();
-        sprite.rotate(degrees);
-        return sprite;
     }
 
     public boolean isDone(){

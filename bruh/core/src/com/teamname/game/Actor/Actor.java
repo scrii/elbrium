@@ -2,7 +2,6 @@ package com.teamname.game.Actor;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.teamname.game.GraphicsObj.GraphicsObj;
-import com.teamname.game.Main;
 
 import Tools.Circle;
 import Tools.Point2D;
@@ -29,12 +28,6 @@ public abstract class Actor extends GraphicsObj {
         direction=new Point2D(0,0);
     }
 
-    public Actor(Point2D position, float Speed){
-        super(Main.err);
-        this.position=new Point2D(position);
-        this.Speed=Speed;
-        direction=new Point2D(0,0);
-    }
 
     public void setDirection(Point2D dir){
         direction=dir;

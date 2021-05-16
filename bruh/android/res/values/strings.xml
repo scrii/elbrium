@@ -69,4 +69,8 @@
     <string name="settings">Настройки</string>
     <string name="econom_text">Оптимизация для слабых устройств</string>
     <string name="appearance">Внешний вид                     </string>
+    <string name="sound">Музыка</string>
+    <string name="error">Если вы это видите, что-то пошло не так</string>
+    <string name="table_leader">Таблица лидеров</string>
+    <string name="table_leader_string">Таблица лидеров по добыче Elbrium</string>
 </resources>

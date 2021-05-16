@@ -22,7 +22,7 @@ public class Main extends Game {
 	public static SpriteBatch batch,frontBatch,playerBatch,hudBatch;
 	public Texture img;
 	public static int WIDTH,HEIGHT;
-	public static Texture circle,stickImg,background,deathSc,elbrium,elbriumCrash;
+	public static Texture circle,stickImg,background,actor,damaged_txr,deathSc,elbrium,elbriumCrash;
 
 	public static Texture err;
 	public static Texture ore1,ore2,ore3,ore4,ore5;
@@ -66,13 +66,20 @@ public class Main extends Game {
 		HEIGHT=Gdx.graphics.getHeight();
 
 		err=new Texture("error.png");
+
 		circle=new Texture("circle.png");
 		stickImg=new Texture("stick.png");
+		actor=new Texture("actor.png");
+		//GdxFIRDatabase.instance().inReference("heading").setValue("msg");
 		background=new Texture("testlocation.png");
 		BACKGROUND_WIDTH=background.getWidth();
 		BACKGROUND_HEIGHT=background.getHeight();
+		db=new DatabaseHelper();
+		damaged_txr=new Texture("dameged_txr_elbrium.png");
+		un_testButtonTX=new Texture("test_button_un_pressed.png");
+		p_testButtonTX=new Texture("test_button_pressed.png");
 		deathSc=new Texture("deathSc.jpg");
-
+		elbrium=new Texture("ore.png");
 
 		loadElbriumTextures();
 		loadPlayerTextures();
@@ -97,6 +104,7 @@ public class Main extends Game {
 		playerBatch.dispose();
 		circle.dispose();
 		stickImg.dispose();
+		actor.dispose();
 		background.dispose();
 		un_testButtonTX.dispose();
 		p_testButtonTX.dispose();
