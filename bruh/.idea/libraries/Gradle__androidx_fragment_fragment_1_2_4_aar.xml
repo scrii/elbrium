@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: androidx.fragment:fragment:1.2.4:aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.fragment/fragment/1.2.4/d90ba7b3d72fba9a210ba82622bbd54c78cbad6b/fragment-1.2.4.aar" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.fragment/fragment/1.2.4/bfa66119813f2997ac526678b7ed354312c83fc/fragment-1.2.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

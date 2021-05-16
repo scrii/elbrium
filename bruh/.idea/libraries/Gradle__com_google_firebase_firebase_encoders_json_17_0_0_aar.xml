@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.google.firebase:firebase-encoders-json:17.0.0:aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.firebase/firebase-encoders-json/17.0.0/98079d9bd078075395e121b113d927a395a8326b/firebase-encoders-json-17.0.0.aar" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.firebase/firebase-encoders-json/17.0.0/bff3c2f27ba0cdeafc148fa65f00f0e3fdcd3df2/firebase-encoders-json-17.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
