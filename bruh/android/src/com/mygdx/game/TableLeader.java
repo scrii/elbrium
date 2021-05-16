@@ -63,7 +63,7 @@ public class TableLeader extends AppCompatActivity {
                                 yourArray.set(j, yourArray.get(j + 1));
                                 arrayList1.set(j+1,s1);
                                 yourArray.set(j + 1, temp);
-                            } //
+                            }
                 }catch (Exception e){
                     e.printStackTrace();
                 }
