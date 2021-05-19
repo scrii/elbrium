@@ -7,8 +7,8 @@ import java.io.PrintWriter;
 
 public class CreatorFiles {
     CreatorFiles(){}
-    File file4,file5,file6,file7,file8,file9,file10,file11,file12,file13,file14,file15,file16,file17,file18;
-    PrintWriter printWriter4,printWriter5,printWriter6,printWriter7,printWriter8,printWriter9,printWriter11,printWriter12,printWriter13,printWriter14,printWriter15,printWriter16,printWriter17,printWriter18;
+    File file4,file5,file6,file7,file8,file9,file10,file11,file12,file13,file14,file15,file16,file17,file18,file19;
+    PrintWriter printWriter4,printWriter5,printWriter6,printWriter7,printWriter8,printWriter9,printWriter11,printWriter12,printWriter13,printWriter14,printWriter15,printWriter16,printWriter17,printWriter18,printWriter19;
     public void create(){
         file4 = new File("/data/data/com.mygdx.game/Health.txt");
         file5 = new File("/data/data/com.mygdx.game/Protection.txt");
