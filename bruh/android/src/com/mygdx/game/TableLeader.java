@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
@@ -20,12 +21,16 @@ import android.widget.Toast;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,11 +40,18 @@ public class TableLeader extends AppCompatActivity {
     ListView listView;
     ArrayList<String> arrayList1 = new ArrayList<>();
     ArrayList<Double> yourArray;
+    ArrayList<Double> arr = new ArrayList<>();
     LeaderBoard leaderBoard;
     TextView leader_nickname,leader_elbrium,number;
     int n,v1=0;
     public int b=1;
+    int h=0;
+    String userUid;
+    FirebaseAuth firebaseAuth;
+    ChildEventListener childEventListener;
+    FirebaseUser user;
     CountDownTimer countDownTimer;
+    DatabaseReference databaseReference;
     FirebaseListAdapter<LeaderBoard> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +62,20 @@ public class TableLeader extends AppCompatActivity {
         leaderBoard = new LeaderBoard();
         GetterANDSetterFile getterANDSetterFile = new GetterANDSetterFile();
         getterANDSetterFile.set_TrueOrFalse(0);
-        FirebaseDatabase.getInstance().getReference("LeaderBoard").push().setValue(new LeaderBoard("god",20000.0));
-        FirebaseDatabase.getInstance().getReference("LeaderBoard").push().setValue(new LeaderBoard("cheater",19999.0));
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
+        userUid = user.getUid();
+        databaseReference = FirebaseDatabase.getInstance().getReference("LeaderBoard");
+        for (int i = 0; i < 1000000000; i++) {
+            arr.add(leaderBoard.getElbrium());
+            if(arr.get(i)==null)break;
+        }
+        Collections.sort(arr,Collections.reverseOrder());
+        //FirebaseDatabase.getInstance().getReference("LeaderBoard").push().setValue(new LeaderBoard("god",20000.0));
+        //FirebaseDatabase.getInstance().getReference("LeaderBoard").push().setValue(new LeaderBoard("cheater",19999.0));
         //Log.d("Database",FirebaseDatabase.getInstance().getReference("LeaderBoard").getParent().toString());
 
-        adapter = new FirebaseListAdapter<LeaderBoard>(TableLeader.this,LeaderBoard.class,R.layout.leader_list, FirebaseDatabase.getInstance().getReference("LeaderBoard")){
+        adapter = new FirebaseListAdapter<LeaderBoard>(TableLeader.this,LeaderBoard.class,R.layout.leader_list, FirebaseDatabase.getInstance().getReference("LeaderBoard").orderByChild("elbrium").limitToLast(2147000000)){
             @Override
             protected void populateView(View v, LeaderBoard model, int position) {
                 number = v.findViewById(R.id.number);
@@ -65,8 +86,8 @@ public class TableLeader extends AppCompatActivity {
                     arrayList1.add(model.getNickname());
                     n = yourArray.size()-1;
                     //отсортированный массив
-                    for (int i = 0; i < n - 1; i++){
-                        for (int j = 0; j < n - i - 1; j++){
+                    for (int i = 0; i < n+1; i++){ //int i = 0; i < n - 1; i++
+                        for (int j = 0; j < n - i+1; j++){ //int j = 0; j < n - i - 1; j++
                             if (yourArray.get(j) < yourArray.get(j + 1)) {
                                 double temp = yourArray.get(j);
                                 String s1 = (String)arrayList1.get(j);
@@ -76,12 +97,6 @@ public class TableLeader extends AppCompatActivity {
                                 yourArray.set(j + 1, temp);
                                 if((arrayList1.get(j)+"") == (getterANDSetterFile.get_Nickname()))v1++;
                             } //
-                        }
-                    }
-                    for (int c = 0; c < n+1; c++) {
-                        for (int i = 0; i < n+1; i++) {
-                            leader_nickname.setText(arrayList1.get(i)+" ");
-                            leader_elbrium.setText(yourArray.get(i)+"");
                         }
                     }
                 }catch (Exception e){
@@ -99,25 +114,26 @@ public class TableLeader extends AppCompatActivity {
                     if(getterANDSetterFile.get_Ore_Elbrium()>0.0){
                         getterANDSetterFile.set_TrueOrFalse(-1);
                         b=0;
-                        FirebaseDatabase.getInstance().getReference("LeaderBoard").push().setValue(new LeaderBoard(getterANDSetterFile.get_Nickname(),getterANDSetterFile.get_Ore_Elbrium()));
+                        //FirebaseDatabase.getInstance().getReference("LeaderBoard").push().setValue(new LeaderBoard(getterANDSetterFile.get_Nickname(),getterANDSetterFile.get_Ore_Elbrium()));
                     }
                 }
-//                if(getterANDSetterFile.get_TrueOrFalse()==-1){
-//                    //FirebaseDatabase.getInstance().getReference("LeaderBoard").updateChildren(new LeaderBoard(getterANDSetterFile.get_Nickname(),getterANDSetterFile.get_Ore_Elbrium()));
-//                    FirebaseDatabase.getInstance().getReference("LeaderBoard").push().setValue(new LeaderBoard(getterANDSetterFile.get_Nickname(),getterANDSetterFile.get_Ore_Elbrium()));
-//                    getterANDSetterFile.set_TrueOrFalse(0);
-//                }
-                number.setText(position+" ");
+                if(getterANDSetterFile.get_TrueOrFalse()==-1){
+                    //FirebaseDatabase.getInstance().getReference("LeaderBoard").updateChildren(new LeaderBoard(getterANDSetterFile.get_Nickname(),getterANDSetterFile.get_Ore_Elbrium()));
+                    //FirebaseDatabase.getInstance().getReference("LeaderBoard").push().setValue(new LeaderBoard(getterANDSetterFile.get_Nickname(),getterANDSetterFile.get_Ore_Elbrium()));
+                    databaseReference.child(user.getUid()).setValue(new LeaderBoard(getterANDSetterFile.get_Nickname(),getterANDSetterFile.get_Ore_Elbrium()));
+                    getterANDSetterFile.set_TrueOrFalse(0);
+                }
+
                 LayoutInflater mInflater = (LayoutInflater) getApplicationContext().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
                 //if (convertView == null) {
                 v = mInflater.inflate(R.layout.leader_list, null);
 
                 LeaderBoard content = getItem(position);
-
-                leader_nickname.setText(content.getNickname()+"");
-                leader_elbrium.setText(content.getElbrium()+"");
-                //leader_nickname.setText(model.getNickname()+" ");
-                //leader_elbrium.setText(model.getElbrium()+"");
+                //leader_nickname.setText(content.getNickname()+" "); //изм
+                //leader_elbrium.setText(content.getElbrium()+""); //изм
+                number.setText(position+" ");
+                leader_nickname.setText(model.getNickname()+" ");
+                leader_elbrium.setText(model.getElbrium()+"");
                 if(position==0)number.setTextColor(getResources().getColor(R.color.zero));
                 if(position>0 && position<=10)number.setTextColor(getResources().getColor(R.color.one_ten));
                 if(position>10 && position<=20)number.setTextColor(getResources().getColor(R.color.ten_twenty));

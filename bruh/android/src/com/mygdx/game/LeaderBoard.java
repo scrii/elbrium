@@ -15,6 +15,7 @@ import java.util.Set;
 public class LeaderBoard {
     public String nickname;
     public double elbrium;
+
     public LeaderBoard(String nickname,double elbrium){
         this.nickname = nickname;
         this.elbrium = elbrium;
