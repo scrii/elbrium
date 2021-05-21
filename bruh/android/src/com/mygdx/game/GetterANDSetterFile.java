@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 public class GetterANDSetterFile {
     double real_attack=0,real_health=0,real_protection=0,real_speed=0,real_money=0,real_ore_elbrium=0,real_maneuverability=0;
     int  real_sign=0,real_xp=0,real_level=0,coefficient_attack=0,coefficient_protection=0,coefficient_speed=0,real_startChat=0,TrueOrFalse=0,real_music=0,real_appearance=0;
-    String real_message="",real_nickname="",myData = "",strLine;
+    String real_message="",real_nickname="",myData = "",strLine,real_leaders="";
     File myExternalFile;
     FileInputStream fis;
     DataInputStream in;
@@ -171,6 +171,25 @@ public class GetterANDSetterFile {
             e.printStackTrace();
         }
         return real_nickname;
+    }
+    public String get_Leaders(){
+        myData = "";
+        myExternalFile = new File("/data/data/com.mygdx.game/Leaders.txt");
+        try {
+            fis = new FileInputStream(myExternalFile);
+            in = new DataInputStream(fis);
+            br = new BufferedReader(new InputStreamReader(in));
+            while ((strLine = br.readLine()) != null) {
+                myData = myData + strLine;
+                real_leaders = myData;
+            }
+            br.close();
+            in.close();
+            fis.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return real_leaders;
     }
     public double get_Guardian_Money(){
         myData = "";
@@ -526,6 +545,16 @@ public class GetterANDSetterFile {
         try {
             printWriter = new PrintWriter(file);
             printWriter.write(r_message);
+            printWriter.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    public void set_Leaders(String r_leaders){
+        file = new File("/data/data/com.mygdx.game/Leaders.txt");
+        try {
+            printWriter = new PrintWriter(file);
+            printWriter.write(r_leaders);
             printWriter.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();

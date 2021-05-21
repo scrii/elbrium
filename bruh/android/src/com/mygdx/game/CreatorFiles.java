@@ -25,6 +25,7 @@ public class CreatorFiles {
         file16 = new File("/data/data/com.mygdx.game/TrueOrFalse.txt");
         file17 = new File("/data/data/com.mygdx.game/SoundMusic.txt");
         file18 = new File("/data/data/com.mygdx.game/Appearance.txt");
+        file19 = new File("/data/data/com.mygdx.game/Leaders.txt");
         try {
             file4.createNewFile();
             file5.createNewFile();
@@ -41,6 +42,7 @@ public class CreatorFiles {
             file16.createNewFile();
             file17.createNewFile();
             file18.createNewFile();
+            file19.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -87,6 +89,9 @@ public class CreatorFiles {
                 printWriter18 = new PrintWriter(file18);
                 printWriter18.write(String.valueOf(0));
                 printWriter18.close();
+                printWriter19 = new PrintWriter(file19);
+                printWriter19.write(String.valueOf(0));
+                printWriter19.close();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
