@@ -67,7 +67,7 @@ public class ScrollingActivity extends AppCompatActivity{
         //getterANDSetterFile.set_Ore_Elbrium(300.0);
         frameLayout = findViewById(R.id.gg);
         mediaPlayer = MediaPlayer.create(this,R.raw.startsound);
-        //frameLayout.setBackgroundResource(R.mipmap.background);
+        //frameLayout.setBackgroundResource(R.mipmap.b1);
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -120,7 +120,7 @@ public class ScrollingActivity extends AppCompatActivity{
                 public void onFinish() {
                     toolBarLayout.setTitle(getterANDSetterFile.get_Nickname());
                     experience = experience + 1;
-                    money = money + 1;
+                    money = getterANDSetterFile.get_Guardian_Money() + 1;
                     info_money.setText(money + "");
                     if (experience % 50 == 0) {
                         level = level + 1;
