@@ -28,10 +28,8 @@ public class TableLeader extends AppCompatActivity {
     LeaderBoard leaderBoard;
     TextView leader_nickname,leader_elbrium,number;
     int n;
-    double timeDouble=0.0;
     public int b=1;
     String userUid;
-    String timeString="";
     FirebaseAuth firebaseAuth;
     GetterANDSetterFile getterANDSetterFile;
     FirebaseUser user;
