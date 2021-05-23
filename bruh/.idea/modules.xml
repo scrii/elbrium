@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/bruh.iml" filepath="$PROJECT_DIR$/.idea/modules/bruh.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/android/bruh.android.iml" filepath="$PROJECT_DIR$/.idea/modules/android/bruh.android.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/bruh.core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/bruh.core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/bruh.desktop.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/bruh.desktop.iml" />
     </modules>
   </component>
 </project>

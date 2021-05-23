@@ -3,7 +3,9 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-bullet/1.9.13/7685073c05884a7b69febaa00cfade5feba819ab/gdx-bullet-1.9.13.jar!/" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-bullet/1.9.13/4f2ffa5dbbeb2560d6b84c3f9c54fb8e876d66d4/gdx-bullet-1.9.13-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-bullet/1.9.13/f61d295c525fd8f9073d3b5b8f46a85c0cdefbde/gdx-bullet-1.9.13-sources.jar!/" />
     </SOURCES>

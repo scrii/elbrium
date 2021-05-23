@@ -3,7 +3,9 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.tomgrill.gdxfirebase/gdx-firebase-core/0.0.4-SNAPSHOT/b7361bc2298229248fa9505e93e8d317bfb655d2/gdx-firebase-core-0.0.4-SNAPSHOT.jar!/" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.tomgrill.gdxfirebase/gdx-firebase-core/0.0.4-SNAPSHOT/7fcdbab14071dc44883ac7726119dbac348b8da4/gdx-firebase-core-0.0.4-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.tomgrill.gdxfirebase/gdx-firebase-core/0.0.4-SNAPSHOT/c72061dd0c78184aee2f01100b07aa5f07809e88/gdx-firebase-core-0.0.4-SNAPSHOT-sources.jar!/" />
     </SOURCES>
