@@ -6,10 +6,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
-import com.mygdx.game.AppLifecycleManager;
-
 public class BaseActivity extends AppCompatActivity {
-
     @Override
     @CallSuper
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,14 +19,12 @@ public class BaseActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         super.onCreate(savedInstanceState);
     }
-
     @Override
     @CallSuper
     protected void onStart() {
         super.onStart();
 //        AppLifecycleManager.updateActivityLifecycle(getClass(), true);
     }
-
     @Override
     @CallSuper
     protected void onStop() {

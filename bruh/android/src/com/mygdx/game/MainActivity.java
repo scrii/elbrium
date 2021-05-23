@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.preference.PreferenceFragmentCompat;
-
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,14 +19,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.github.library.bubbleview.BubbleTextView;
 import com.google.firebase.database.DataSnapshot;
@@ -57,35 +54,29 @@ public class MainActivity extends AppCompatActivity {
     TextView word;
     int sec=1;
     CountDownTimer countDownTimer;
-    MediaPlayer mediaPlayer;
-    // //
+    public static MediaPlayer mediaPlayer2;
     GetterANDSetterFile getterANDSetterFile;
-    //Online online;
-    // //
     private static String CHANNEL_ID = "Elbrium channel";
-    // //
     @Override
     protected void onPause() {
-        //updateOnline();
-        if(getterANDSetterFile.get_SoundMusic()==1)mediaPlayer.pause();
-        Log.e("MAINACTIVITY", "PAUSED");
+        mediaPlayer2.pause();
+        Log.d("MAINACTIVITY", "PAUSED");
         super.onPause();
     }
     @Override
     protected void onStart(){
-        if(getterANDSetterFile.get_SoundMusic()==1)mediaPlayer.start();
+        if(getterANDSetterFile.get_SoundMusic()==1)mediaPlayer2.start();
         super.onStart();
     }
-    // //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mediaPlayer = MediaPlayer.create(this,R.raw.chatsound);
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        mediaPlayer2 = MediaPlayer.create(this,R.raw.chatsound);
+        mediaPlayer2.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                if(getterANDSetterFile.get_SoundMusic()==1)mediaPlayer.start();
+                if(getterANDSetterFile.get_SoundMusic()==1)mediaPlayer2.start();
             }
         });
         myListView = findViewById(R.id.listView);
@@ -93,12 +84,6 @@ public class MainActivity extends AppCompatActivity {
         input = findViewById(R.id.editText);
         word = findViewById(R.id.number_of_words_entered);
         getterANDSetterFile = new GetterANDSetterFile(); //
-        //online(0);
-        // //
-        //online=new Online();
-        //online.online(0);
-        //online(1);
-        // //
         protect = getterANDSetterFile.get_Protection();
         health = getterANDSetterFile.get_Health();
         attack = getterANDSetterFile.get_Attack();
@@ -114,8 +99,6 @@ public class MainActivity extends AppCompatActivity {
                 s1 = input.getText().toString();
                 spaces = s1.length() - s1.replace(" ", "").length();
                 luck = (int) (Math.random()*1000);
-                Log.d("random_int",luck+"");
-                Log.d("random_string",lucky+"");
                 if(luck%2==0)lucky = " [Успешно]";
                 else lucky = " [Неуспешно]";
                 if(nickname != null && !s1.equals("") && !s1.contains("\n\n\n\n") && s1.length()!=spaces && !s1.contains("#try")){
@@ -127,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 else if(s1.contains("#try"))FirebaseDatabase.getInstance().getReference("Message").push().setValue(new Message(input.getText().toString()+lucky, nickname));
-                //else if(!s1.equals("") && !s1.contains("\n\n\n\n\n") && s1.length()!=spaces)FirebaseDatabase.getInstance().getReference("Message").push().setValue(new Message(input.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail()));
                 else Toast.makeText(getApplicationContext(),"Сообщение не может быть пустым",Toast.LENGTH_SHORT).show();
                 lucky = "";
                 luck=0;
@@ -243,7 +225,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else textMessage.setTextColor(getResources().getColor(R.color.white));
                 words = s.split(" ");
-                //if(s.contains("@all"))
                 if(!s.contains("*")&&!textMessage.getText().toString().contains("*") && s.contains("@"+nickname)){
                     g1 = s.indexOf("@");
                     g2 = nickname.length()+g1;
@@ -313,7 +294,6 @@ public class MainActivity extends AppCompatActivity {
         };
         listMessages.setAdapter(adapter);
     }
-    // //
     public void updateOnline(String s, int case_){
         switch (case_){
             case 0:FirebaseDatabase.getInstance().getReference("online").onDisconnect().setValue(s.replace(getterANDSetterFile.get_Nickname() + ";", ""));break;
@@ -334,5 +314,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    // //
 }

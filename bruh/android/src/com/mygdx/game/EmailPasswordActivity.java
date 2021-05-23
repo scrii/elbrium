@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -15,30 +14,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
-
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-
-import cn.zhaiyifan.rememberedittext.RememberEditText;
 
 public class EmailPasswordActivity extends AppCompatActivity implements View.OnClickListener{
     EditText registration_nickname;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-
     private EditText ETemail;
     private EditText ETpassword;
-    int number=0,o;
+    int number=0;
     String s;
     public void signin (String email, String password)
     {
@@ -67,15 +52,10 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    o++;
-                } else
-                    o++;
                 CreatorFiles sd = new CreatorFiles();
                 sd.create();
                 s = registration_nickname.getText().toString();
                 GetterANDSetterFile getterANDSetterFile = new GetterANDSetterFile();
-
                 getterANDSetterFile.set_Nickname(s);
                 number = 1;
                 if(getterANDSetterFile.get_Nickname()!=""){
@@ -91,8 +71,6 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
         if(view.getId() == R.id.btn_sign_in)
         {
             try {
-                CreatorFiles sd = new CreatorFiles();
-                sd.create();
                 s = registration_nickname.getText().toString();
                 GetterANDSetterFile getterANDSetterFile = new GetterANDSetterFile();
                 getterANDSetterFile.set_Nickname(s);
@@ -101,7 +79,6 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
             }catch (Exception e) {
                 e.printStackTrace();
             }
-
         }else if (view.getId() == R.id.btn_registration)
         {
             try {
@@ -115,7 +92,6 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email_password);
-
         CreatorFiles sd = new CreatorFiles();
         sd.create();
         registration_nickname = findViewById(R.id.registration_nickname);
@@ -131,8 +107,6 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
                     s = registration_nickname.getText().toString();
                     GetterANDSetterFile getterANDSetterFile = new GetterANDSetterFile();
                     getterANDSetterFile.set_Nickname(s);
-                } else {
-                    o++;
                 }
             }
         };

@@ -1,14 +1,11 @@
 package com.mygdx.game;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -20,29 +17,38 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
-
-import java.util.ArrayList;
+import static com.mygdx.game.ScrollingActivity.mediaPlayer;
 
 public class PersonActivity extends AppCompatActivity {
     EditText name_person;
     Button confirm;
     String s;
+    GetterANDSetterFile getterANDSetterFile;
     Switch soundMusic;
     Spinner appearance;
     ImageView imageView;
     CountDownTimer countDownTimer;
-    MediaPlayer mediaPlayer;
     int seconds=1;
+    @Override
+    protected void onStart(){
+        if(getterANDSetterFile.get_SoundMusic()==1)mediaPlayer.start();
+        super.onStart();
+    }
+    @Override
+    protected void onPause(){
+        mediaPlayer.pause();
+        super.onPause();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person);
         name_person = findViewById(R.id.name_person);
-        s = name_person.getText().toString();               //Получение вводимого имени в String (true)
+        s = name_person.getText().toString();
         confirm = findViewById(R.id.confirm);
         imageView = findViewById(R.id.appearance_imageView);
         soundMusic = findViewById(R.id.sound);
-        GetterANDSetterFile getterANDSetterFile = new GetterANDSetterFile();
+        getterANDSetterFile = new GetterANDSetterFile();
         if(getterANDSetterFile.get_Nickname()!=name_person.getText().toString()){
             confirm.setVisibility(View.VISIBLE);
             confirm.setOnClickListener(new View.OnClickListener() {
@@ -101,34 +107,16 @@ public class PersonActivity extends AppCompatActivity {
         appearance.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,View itemSelected, int selectedItemPosition, long selectedId) {
                 s2[0] = String.valueOf(appearance.getSelectedItem());
-                if(appearance.getSelectedItemId()==1){
-                    //imageView.setImageResource(R.mipmap.original);
-                    getterANDSetterFile.set_Appearance(1);
-                }
-                if(appearance.getSelectedItemId()==2){
-                    //imageView.setImageResource(R.mipmap.original2);
-                    getterANDSetterFile.set_Appearance(2);
-                }
-                if(appearance.getSelectedItemId()==3){
-                    //imageView.setImageResource(R.mipmap.original3);
-                    getterANDSetterFile.set_Appearance(3);
-                }
-                if(appearance.getSelectedItemId()==4){
-                    //imageView.setImageResource(R.mipmap.original4);
-                    getterANDSetterFile.set_Appearance(4);
-                }
-                if(appearance.getSelectedItemId()==5){
-                    //imageView.setImageResource(R.mipmap.original5);
-                    getterANDSetterFile.set_Appearance(5);
-                }
+                if(appearance.getSelectedItemId()==1)getterANDSetterFile.set_Appearance(1);
+                if(appearance.getSelectedItemId()==2)getterANDSetterFile.set_Appearance(2);
+                if(appearance.getSelectedItemId()==3)getterANDSetterFile.set_Appearance(3);
+                if(appearance.getSelectedItemId()==4)getterANDSetterFile.set_Appearance(4);
+                if(appearance.getSelectedItemId()==5)getterANDSetterFile.set_Appearance(5);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-        //===========================================================
-        //Запрещено трогать код ниже!!!!!!
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -157,5 +145,4 @@ public class PersonActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    //Не трогать код выше
 }

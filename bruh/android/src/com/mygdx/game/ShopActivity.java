@@ -1,6 +1,5 @@
 package com.mygdx.game;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.MenuItem;
@@ -16,8 +15,10 @@ import androidx.preference.PreferenceFragmentCompat;
 import com.google.firebase.database.FirebaseDatabase;
 
 import FirebaseHelper.Message;
+import static com.mygdx.game.ScrollingActivity.mediaPlayer;
 
 public class ShopActivity extends AppCompatActivity {
+
     GetterANDSetterFile getter_setter;
     Message player_data;
     public int seconds = 1;
@@ -30,16 +31,23 @@ public class ShopActivity extends AppCompatActivity {
     int price_maneuverability = 10;
     Button maneuverability_plus_one,attack_plus_one,protect_plus_one,speed_plus_one,sale_of_elbrium;
     TextView real_money_characteristic,real_health_characteristic,real_damage_characteristic,real_protect_characteristic,real_speed_characteristic,real_ore_characteristic,maneuverability_price,attack_price,protection_price,speed_price;
-
+    @Override
+    protected void onStart(){
+        if(getter_setter.get_SoundMusic()==1)mediaPlayer.start();
+        super.onStart();
+    }
+    @Override
+    protected void onPause(){
+        mediaPlayer.pause();
+        super.onPause();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop_activity);
-        // //
         getter_setter=new GetterANDSetterFile();
         player_data=new Message(getter_setter.getTexture(),-1,-1,(float)getter_setter.get_Attack(),
                 (float)getter_setter.get_Health(),(float)getter_setter.get_Protection());
-        // //
         maneuverability_plus_one = findViewById(R.id.maneuverability_plus_one);
         attack_plus_one = findViewById(R.id.attack_plus_one);
         protect_plus_one = findViewById(R.id.protect_plus_one);
@@ -55,7 +63,6 @@ public class ShopActivity extends AppCompatActivity {
         protection_price = findViewById(R.id.protection_price);
         speed_price = findViewById(R.id.speed_price);
         sale_of_elbrium = findViewById(R.id.sale_elbrium);
-
         GetterANDSetterFile getterANDSetterFile = new GetterANDSetterFile();
         countDownTimer = new CountDownTimer(seconds*1000,1000) {
             @Override
@@ -73,7 +80,6 @@ public class ShopActivity extends AppCompatActivity {
                 protection_price.setText(Math.round((30 + price_protection*getterANDSetterFile.get_Coefficient_Protection())*100.0)/100.0+"");
                 maneuverability_price.setText(Math.round((10 + price_maneuverability*getterANDSetterFile.get_Maneuverability())*100.0)/100.0+"");
             }
-
             @Override
             public void onFinish() {
                 if (countDownTimer != null){
@@ -86,19 +92,16 @@ public class ShopActivity extends AppCompatActivity {
             seconds = 1;
             countDownTimer.start();
         }
-
         real_ore_characteristic.setText(Math.round(getterANDSetterFile.get_Ore_Elbrium()*100.0)/100.0+"");
         real_health_characteristic.setText(Math.round(getterANDSetterFile.get_Health()*100.0)/100.0+"");
         real_damage_characteristic.setText(Math.round(getterANDSetterFile.get_Attack()*100.0)/100.0+"");
         real_protect_characteristic.setText(Math.round(getterANDSetterFile.get_Protection()*100.0)/100.0+"");
         real_speed_characteristic.setText(Math.round(getterANDSetterFile.get_Speed()*100.0)/100.0+"");
         real_money_characteristic.setText(Math.round(getterANDSetterFile.get_Guardian_Money()*100.0)/100.0+"");
-
         attack_price.setText(Math.round((10 + price_attack*getterANDSetterFile.get_Coefficient_Attack())*100.0)/100.0+"");
         speed_price.setText(Math.round((30 + price_speed*getterANDSetterFile.get_Coefficient_Speed())*100.0)/100.0+"");
         protection_price.setText(Math.round((30 + price_protection*getterANDSetterFile.get_Coefficient_Protection())*100.0)/100.0+"");
         maneuverability_price.setText(Math.round((10 + price_maneuverability*getterANDSetterFile.get_Maneuverability())*100.0)/100.0+"");
-
         maneuverability_plus_one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,7 +122,6 @@ public class ShopActivity extends AppCompatActivity {
                 else Toast.makeText(getApplicationContext(),"Недостаточно средств",Toast.LENGTH_SHORT).show();
             }
         });
-
         attack_plus_one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,14 +140,10 @@ public class ShopActivity extends AppCompatActivity {
                     else Toast.makeText(getApplicationContext(),"Ваша скорость слишком мала",Toast.LENGTH_SHORT).show();
                 }
                 else Toast.makeText(getApplicationContext(),"Недостаточно средств",Toast.LENGTH_SHORT).show();
-
-                // //
                 player_data.setAttack((float)getterANDSetterFile.get_Attack());
                 update_values();
-                // //
             }
         });
-
         protect_plus_one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,13 +173,10 @@ public class ShopActivity extends AppCompatActivity {
                     }
                 }
                 else Toast.makeText(getApplicationContext(),"Недостаточно средств",Toast.LENGTH_SHORT).show();
-                // //
                 player_data.setProtect((float)getterANDSetterFile.get_Protection());
                 update_values();
-                // //
             }
         });
-
         speed_plus_one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -211,13 +206,9 @@ public class ShopActivity extends AppCompatActivity {
                     }
                 }
                 else Toast.makeText(getApplicationContext(),"Недостаточно средств",Toast.LENGTH_SHORT).show();
-                // //
-                //player_data.setSpeed(getterANDSetterFile.get_Speed());
                 update_values();
-                // //
             }
         });
-
         sale_of_elbrium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -228,8 +219,6 @@ public class ShopActivity extends AppCompatActivity {
                 else Toast.makeText(getApplicationContext(),"Elbrium не найден",Toast.LENGTH_SHORT).show();
             }
         });
-
-        //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -258,13 +247,7 @@ public class ShopActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-    // FIREBASE //
-
     public void update_values(){
         FirebaseDatabase.getInstance().getReference("LONGDATA_"+getter_setter.get_Nickname()).setValue(player_data.toString());
     }
-
-    // FIREVASE //
 }

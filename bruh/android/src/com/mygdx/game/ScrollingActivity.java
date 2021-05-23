@@ -4,22 +4,17 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.widget.NestedScrollView;
-
 import android.os.CountDownTimer;
 import android.text.SpannableString;
-
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
@@ -28,27 +23,26 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
-import java.io.File;
-
 import FirebaseHelper.Message;
 import FirebaseHelper.Online;
-
 public class ScrollingActivity extends AppCompatActivity{
     double money,plus_health,plus_attack,real_money;
-    int real_level,experience,real_sign,level,real_xp,seconds;
+    int real_level,experience,level,real_xp,seconds;
     CountDownTimer countDownTimer;
     GetterANDSetterFile getterANDSetterFile;
     FrameLayout frameLayout;
-    MediaPlayer mediaPlayer;
-    // //
+    public static MediaPlayer mediaPlayer;
     public Message player_data;
     Online online;
-    // //
     @Override
     protected void onStart(){
         if(getterANDSetterFile.get_SoundMusic()==1)mediaPlayer.start();
         super.onStart();
+    }
+    @Override
+    protected void onPause(){
+        mediaPlayer.pause();
+        super.onPause();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,31 +57,21 @@ public class ScrollingActivity extends AppCompatActivity{
             }
         }
         setContentView(R.layout.activity_scrolling);
-        //getterANDSetterFile.set_Nickname("America");
-        //getterANDSetterFile.set_Ore_Elbrium(300.0);
         frameLayout = findViewById(R.id.gg);
         mediaPlayer = MediaPlayer.create(this,R.raw.startsound);
-        //frameLayout.setBackgroundResource(R.mipmap.b1);
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 if(getterANDSetterFile.get_SoundMusic()==1)mediaPlayer.start();
             }
         });
-        // //
-        //online(-1);
         player_data=new Message(getterANDSetterFile.getTexture(),-1,-1,(float)getterANDSetterFile.get_Attack(),
                 (float)getterANDSetterFile.get_Health(),(float)getterANDSetterFile.get_Protection());
         FirebaseDatabase.getInstance().getReference("LONGDATA").push().setValue(player_data.toString());
         online=new Online();
-        //online.online(0);
-        // //
-        //real_sign = getterANDSetterFile.get_Sign();
-        //if(real_sign != 1)startActivity(new Intent(ScrollingActivity.this,EmailPasswordActivity.class));
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = findViewById(R.id.toolbar_layout);
-        //toolBarLayout.setTitle(getterANDSetterFile.get_Nickname());
         TextView info_level = findViewById(R.id.level);
         TextView info_money = findViewById(R.id.money);
         Button room1  = findViewById(R.id.room_one_button);
@@ -153,17 +137,16 @@ public class ScrollingActivity extends AppCompatActivity{
             }
         });
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_scrolling, menu);
-        int positionOfMenuItem = 0;                                                           //Красный цвет Person в menu_scrolling
+        int positionOfMenuItem = 0;
         MenuItem item = menu.getItem(positionOfMenuItem);
         SpannableString s = new SpannableString("Настройки");
         s.setSpan(new ForegroundColorSpan(Color.RED), 0, s.length(), 0);
         item.setTitle(s);
 
-        MenuItem item2 = menu.getItem(1);                                              //Красный цвет Shop в menu_scrolling
+        MenuItem item2 = menu.getItem(1);
         SpannableString s1 = new SpannableString("Магазин");
         s1.setSpan(new ForegroundColorSpan(Color.RED), 0, s1.length(), 0);
         item2.setTitle(s1);
@@ -173,13 +156,12 @@ public class ScrollingActivity extends AppCompatActivity{
         s3.setSpan(new ForegroundColorSpan(Color.RED), 0, s3.length(), 0);
         item4.setTitle(s3);
 
-        MenuItem item3 = menu.getItem(3);                                              //Красный цвет Выход в menu_scrolling
+        MenuItem item3 = menu.getItem(3);
         SpannableString s2 = new SpannableString("Выход");
         s2.setSpan(new ForegroundColorSpan(Color.RED), 0, s2.length(), 0);
         item3.setTitle(s2);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -216,7 +198,6 @@ public class ScrollingActivity extends AppCompatActivity{
         }
         return super.onOptionsItemSelected(item);
     }
-    // //
     public void online(int case_){
         FirebaseDatabase.getInstance().getReference("online").addValueEventListener(new ValueEventListener() {
             @Override
@@ -224,12 +205,10 @@ public class ScrollingActivity extends AppCompatActivity{
                 getterANDSetterFile.set_online(snapshot.getValue().toString());
                 Log.e("ScrollingAc",getterANDSetterFile.get_Online());
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
     }
-    // //
 }

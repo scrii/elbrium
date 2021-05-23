@@ -3,14 +3,24 @@ package com.mygdx.game;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
-
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
-
+import static com.mygdx.game.ScrollingActivity.mediaPlayer;
 public class About_us extends AppCompatActivity {
-TextView pr,pr_text,com,j,j_text,l,l_text,an,an_text,a,a_text,e,e_text,bags_tv,vk,vk_text,try_tv,try_text;
-String text,prehistory,prehistory_txt,commands,join,join_txt,leave,leave_txt,an_nickname,an_nickname_txt,all,all_txt,example,example_text,bags,copy_txt,vkon,vkon_txt,try_string_tv,try_string;
+    @Override
+    protected void onStart(){
+        GetterANDSetterFile getterANDSetterFile = new GetterANDSetterFile();
+        if(getterANDSetterFile.get_SoundMusic()==1)mediaPlayer.start();
+        super.onStart();
+    }
+    @Override
+    protected void onPause(){
+        mediaPlayer.pause();
+        super.onPause();
+    }
+TextView pr,pr_text,com,j,j_text,l,l_text,an,an_text,e,e_text,bags_tv,vk,vk_text,try_tv,try_text;
+String prehistory,prehistory_txt,commands,join,join_txt,leave,leave_txt,an_nickname,an_nickname_txt,example,example_text,bags,copy_txt,vkon,vkon_txt,try_string_tv,try_string;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +36,6 @@ String text,prehistory,prehistory_txt,commands,join,join_txt,leave,leave_txt,an_
         l_text = findViewById(R.id.leave_text);
         an = findViewById(R.id.another_nickname);
         an_text = findViewById(R.id.another_nickname_text);
-        a = findViewById(R.id.all);
-        a_text = findViewById(R.id.all_text);
         e = findViewById(R.id.example);
         e_text = findViewById(R.id.example_text);
         bags_tv = findViewById(R.id.bags);
@@ -48,8 +56,6 @@ String text,prehistory,prehistory_txt,commands,join,join_txt,leave,leave_txt,an_
         leave_txt = "– вернуться в главное меню.";
         an_nickname = "@чужой_ник ";
         an_nickname_txt = "– упоминание пользователя.";
-        all = "@all ";
-        all_txt = "– упоминание всех пользователей.";
         example = "*текст* ";
         example_text = "– комментирование текста в случайном месте.";
         bags = "Нашли баг? Напишите нам: ";
@@ -66,9 +72,6 @@ String text,prehistory,prehistory_txt,commands,join,join_txt,leave,leave_txt,an_
         an.setText(an_nickname);
         an.setTextColor(getResources().getColor(R.color.ping2));
         an_text.setText(an_nickname_txt+"\n");
-        a.setText(all);
-        a.setTextColor(getResources().getColor(R.color.ping));
-        a_text.setText(all_txt+"\n");
         e.setText(example);
         e.setTextColor(getResources().getColor(R.color.comment));
         e_text.setText(example_text+"\n");
@@ -78,26 +81,15 @@ String text,prehistory,prehistory_txt,commands,join,join_txt,leave,leave_txt,an_
         bags_tv.setText(bags + copy_txt+"\n");
         vk.setText(vkon);
         vk_text.setText(vkon_txt+"\n");
-
-        if (savedInstanceState == null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.aboutUs, new About_us.SettingsFragment())
-                    .commit();
-        }
-
+        if (savedInstanceState == null)getSupportFragmentManager().beginTransaction().replace(R.id.aboutUs, new About_us.SettingsFragment()).commit();
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        if (actionBar != null)actionBar.setDisplayHomeAsUpEnabled(true);
     }
-
     public static class SettingsFragment extends PreferenceFragmentCompat {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             //setPreferencesFromResource(R.xml.root_preferences, rootKey);
-        }
-    }
+            }}
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -105,7 +97,4 @@ String text,prehistory,prehistory_txt,commands,join,join_txt,leave,leave_txt,an_
                 this.finish();
                 return true;
             default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-    }
+                return super.onOptionsItemSelected(item);}}}
